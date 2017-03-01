@@ -75,6 +75,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean isAuth() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof User)
+            return true;
+        else
+            return false;
+    }
+
+    @Override
     public User user(Long id) {
         return userRepository.findOne(id);
     }

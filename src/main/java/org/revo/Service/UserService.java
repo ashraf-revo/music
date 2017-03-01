@@ -14,6 +14,8 @@ public interface UserService {
 
     User current();
 
+    boolean isAuth();
+
     User user(Long id);
 
     Optional<User> findByEmail(String email);

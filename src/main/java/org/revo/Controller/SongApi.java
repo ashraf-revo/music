@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,11 +30,13 @@ public class SongApi {
     private CachedUserService cachedUserService;
     @Autowired
     private SearchService searchService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     @JsonView(ViewDetails.CustomSong.class)
     public ResponseEntity<List<Song>> songs() {
-        return ResponseEntity.ok(Util.buildLikes(songService.findAll(), cachedUserService.likesByCurrentUser()));
+        return ResponseEntity.ok(Util.buildLikes(songService.findAll(), userService.isAuth() ? cachedUserService.likesByCurrentUser() : new ArrayList<>()));
     }
 
     @PostMapping(value = "search")
