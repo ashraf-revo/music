@@ -44,7 +44,7 @@ public class SongApi {
     public ResponseEntity<Search> search(@RequestBody SearchCriteria searchCriteria, @RequestParam(value = "full", required = false, defaultValue = "false") boolean full) {
         String fields = "title";
         List<Song> body = full ? searchService.searchAndGet(searchCriteria, fields) : searchService.search(searchCriteria, fields);
-        return ResponseEntity.ok(new Search(searchCriteria, body));
+        return ResponseEntity.ok(new Search(searchCriteria, Util.buildLikes(body, userService.isAuth() ? cachedUserService.likesByCurrentUser() : new ArrayList<>())));
     }
 
     @PostMapping
@@ -83,5 +83,4 @@ public class SongApi {
                 })
                 .subscribe(it -> songService.save(it));
     }
-
 }
