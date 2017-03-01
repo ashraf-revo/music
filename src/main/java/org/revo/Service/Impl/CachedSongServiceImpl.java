@@ -25,21 +25,20 @@ public class CachedSongServiceImpl implements CachedSongService {
     @Autowired
     private CachedSongService cachedSongService;
     @Autowired
-    private ViewService  viewService;
+    private ViewService viewService;
     @Autowired
     private LikeService LikeService;
 
     @Cacheable(value = "songViews", key = "#id")
-    @Override
     public List<View> views(Long id) {
         return viewService.readBySong_Id(id);
     }
 
     @CachePut(value = "songViews", key = "#view.user.id")
-    @Override
     public List<View> add(View view) {
         List<View> views = cachedSongService.views(view.getUser().getId());
         views.add(copyView(view));
+        cachedSongService.addView(view.getSong().getId());
         return views;
     }
 
@@ -52,12 +51,38 @@ public class CachedSongServiceImpl implements CachedSongService {
     public List<Like> add(Like like) {
         List<Like> likes = cachedSongService.likes(like.getUser().getId());
         likes.add(copyLike(like));
+        cachedSongService.addLike(like.getSong().getId());
         return likes;
     }
 
-
     @CachePut(value = "songLikes", key = "#like.user.id")
     public List<Like> remove(Like like) {
+        cachedSongService.removeLike(like.getSong().getId());
         return cachedSongService.likes(like.getUser().getId()).stream().filter(it -> !Objects.equals(it.getId(), like.getId())).collect(toList());
+    }
+
+    @Cacheable(value = "likesCount", key = "#id")
+    public int likesCount(Long id) {
+        return cachedSongService.likes(id).size();
+    }
+
+    @Cacheable(value = "viewsCount", key = "#id")
+    public int viewsCount(Long id) {
+        return cachedSongService.views(id).size();
+    }
+
+    @CachePut(value = "likesCount", key = "#id")
+    public int addLike(Long id) {
+        return cachedSongService.likesCount(id) + 1;
+    }
+
+    @CachePut(value = "likesCount", key = "#id")
+    public int removeLike(Long id) {
+        return cachedSongService.likesCount(id) - 1;
+    }
+
+    @CachePut(value = "viewsCount", key = "#id")
+    public int addView(Long id) {
+        return cachedSongService.viewsCount(id) + 1;
     }
 }

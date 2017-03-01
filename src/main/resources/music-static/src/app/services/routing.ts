@@ -11,6 +11,7 @@ import {ActiveComponent} from "../outdoor/active/active.component";
 import {Error404Component} from "../outdoor/error404/error404.component";
 import {SecureGuardService} from "./SecureGuardService";
 import {InSecureGuardService} from "./InSecureGuardService";
+import {SongInfoComponent} from "../indoor/views/song-info/song-info.component";
 export const routes: Routes = [
   {path: '', component: SigninComponent, canActivate: [InSecureGuardService]},
   {path: 'signin', component: SigninComponent, canActivate: [InSecureGuardService]},
@@ -21,6 +22,7 @@ export const routes: Routes = [
     path: '', component: BaseComponent, children: [
     {path: 'home', component: HomeComponent, canActivate: [SecureGuardService]},
     {path: 'search/:data', component: SearchComponent, canActivate: [SecureGuardService]},
+    {path: 'song/:id', component: SongInfoComponent, canActivate: [SecureGuardService]},
     {path: 'profile/:id', component: ProfileComponent, canActivate: [SecureGuardService]},
     {path: 'settings', component: SettingsComponent, canActivate: [SecureGuardService]},
     {path: 'upload', component: UploadComponent, canActivate: [SecureGuardService]},

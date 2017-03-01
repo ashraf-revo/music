@@ -17,4 +17,6 @@ public interface SongService {
     List<Song> findViewsByUser_Id(Long id);
 
     List<Song> findLikesByUser_Id(Long id);
+
+    Song findSong(Long id);
 }

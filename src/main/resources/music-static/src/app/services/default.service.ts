@@ -7,7 +7,7 @@ import {AuthService} from "./auth.service";
 export class DefaultService {
   private _url: string = "";
   private _lastUrl: string = null;
-  private _secureRoutes: string[] = ['secure', 'home', 'profile', 'upload', 'search', 'settings'];
+  private _secureRoutes: string[] = ['secure', 'home', 'profile', 'upload', 'search', 'settings', 'song'];
   private _insecureRoutes: string[] = ['insecure', 'signin', 'signup', 'active', ''];
 
   constructor() {

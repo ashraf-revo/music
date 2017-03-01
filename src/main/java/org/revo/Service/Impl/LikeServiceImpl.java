@@ -8,6 +8,7 @@ import org.revo.Service.LikeService;
 import org.revo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -40,10 +41,12 @@ public class LikeServiceImpl implements LikeService {
         });
     }
 
+    @Transactional
     @Override
     public void unLike(Like like) {
         Assert.notNull(like.getId());
-        likeRepository.removeById(like.getId()).ifPresent(likes -> {
+        likeRepository.findById(like.getId()).ifPresent(likes -> {
+            likeRepository.removeById(like.getId());
             cachedUserService.remove(likes);
             cachedSongService.remove(likes);
         });

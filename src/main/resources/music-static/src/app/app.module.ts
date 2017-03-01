@@ -26,6 +26,7 @@ import {TabComponent} from "./indoor/parts/tab/tab.component";
 import {Error404Component} from "./outdoor/error404/error404.component";
 import {SecureGuardService} from "./services/SecureGuardService";
 import {InSecureGuardService} from "./services/InSecureGuardService";
+import { SongInfoComponent } from './indoor/views/song-info/song-info.component';
 export function Cookie() {
   return new CookieXSRFStrategy('XSRF-TOKEN', 'X-XSRF-TOKEN')
 }
@@ -47,7 +48,8 @@ export function Cookie() {
     SettingsComponent,
     ActiveComponent,
     TabComponent,
-    Error404Component],
+    Error404Component,
+    SongInfoComponent],
   imports: [LocalStorageModule.withConfig({
     prefix: 'my-app',
     storageType: 'localStorage'

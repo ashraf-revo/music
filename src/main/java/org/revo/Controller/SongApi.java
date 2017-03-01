@@ -12,7 +12,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ashraf on 18/01/17.
@@ -29,6 +31,8 @@ public class SongApi {
     @Autowired
     private CachedUserService cachedUserService;
     @Autowired
+    private CachedSongService cachedSongService;
+    @Autowired
     private SearchService searchService;
     @Autowired
     private UserService userService;
@@ -37,6 +41,21 @@ public class SongApi {
     @JsonView(ViewDetails.CustomSong.class)
     public ResponseEntity<List<Song>> songs() {
         return ResponseEntity.ok(Util.buildLikes(songService.findAll(), userService.isAuth() ? cachedUserService.likesByCurrentUser() : new ArrayList<>()));
+    }
+
+    @GetMapping("{id}")
+    @JsonView(ViewDetails.CustomSong.class)
+    public ResponseEntity<Song> findSong(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(songService.findSong(id));
+    }
+
+    @GetMapping("info/{id}")
+    @JsonView(ViewDetails.CustomSong.class)
+    public ResponseEntity<Map<String, Integer>> findSongInfo(@PathVariable("id") Long id) {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("likes", cachedSongService.likesCount(id));
+        map.put("views", cachedSongService.viewsCount(id));
+        return ResponseEntity.ok(map);
     }
 
     @PostMapping(value = "search")

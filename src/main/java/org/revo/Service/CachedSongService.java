@@ -19,4 +19,13 @@ public interface CachedSongService {
 
     List<Like> remove(Like like);
 
+    int likesCount(Long id);
+
+    int viewsCount(Long id);
+
+    int addLike(Long id);
+
+    int removeLike(Long id);
+
+    int addView(Long id);
 }

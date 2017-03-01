@@ -57,4 +57,9 @@ public class SongServiceImpl implements SongService {
     public List<Song> findLikesByUser_Id(Long id) {
         return songRepository.findLikesByUser_Id(id);
     }
+
+    @Override
+    public Song findSong(Long id) {
+        return null;
+    }
 }
