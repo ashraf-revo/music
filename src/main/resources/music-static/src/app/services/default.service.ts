@@ -43,9 +43,10 @@ export class DefaultService {
   get insecureRoutes(): string[] {
     return this._insecureRoutes;
   }
+
   static  canActivateImpl(path: string, _router: Router, _authService: AuthService, _defaultService: DefaultService): Observable<boolean>|Promise<boolean>|boolean {
     let can: boolean = false;
-    if (_defaultService.mock||path == null) can = true;
+    if (_defaultService.mock || path == null) can = true;
     if (_defaultService.secureRoutes.indexOf(path) != -1) {
       if (_authService.isAuth()) {
         can = true;
