@@ -1,6 +1,5 @@
 package org.revo.Domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
@@ -123,7 +122,7 @@ public class User extends BaseUser {
         super.setCreatedDate(createdDate);
     }
 
-    public User(Long id, String name, String imageUrl, String phone, String info, String email, Date createdDate, String password, boolean enable, boolean locked,String type) {
+    public User(Long id, String name, String imageUrl, String phone, String info, String email, Date createdDate, String password, boolean enable, boolean locked, String type) {
         super.setId(id);
         this.name = name;
         this.imageUrl = imageUrl;
