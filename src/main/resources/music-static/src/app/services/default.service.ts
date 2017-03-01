@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {Event, NavigationStart} from "@angular/router";
+import {Event} from "@angular/router";
 
 @Injectable()
 export class DefaultService {
@@ -12,14 +12,13 @@ export class DefaultService {
 
   urlListener(event: Observable<Event>) {
     event.subscribe(e => {
-        let values: string[] = e.url.split("/");
-        if (values.length > 0) {
-          this._lastUrl = values[1];
-        } else {
-          this._lastUrl = '';
+      let values: string[] = e.url.split("/");
+      if (values.length > 0) {
+        this._lastUrl = values[1];
+      } else {
+        this._lastUrl = '';
       }
     });
-
   }
 
   get url(): string {

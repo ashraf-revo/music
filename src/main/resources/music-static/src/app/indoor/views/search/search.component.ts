@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {Router, ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {SongService} from "../../../services/song.service";
 import {Song} from "../../../domain/Song";
 import {SearchCriteria} from "../../../domain/SearchCriteria";
@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit {
 
   loadMore() {
     this._songService.songsSearchAndGet(this.build()).subscribe(search => {
-      if (search.searchCriteria.search != this.search) {
+      if (search.searchCriteria.search.trim().split(" ").join("-") != this.search) {
         this.songs = [];
         this.current = 0;
       }
@@ -43,7 +43,7 @@ export class SearchComponent implements OnInit {
   build(): SearchCriteria {
     let pageRequest: Page = new Page();
     let searchCriteria: SearchCriteria = new SearchCriteria();
-    searchCriteria.search = this.search;
+    searchCriteria.search = this.search.split("-").join(" ");
     pageRequest.number = this.current;
     pageRequest.size = this.size;
     searchCriteria.page = pageRequest;

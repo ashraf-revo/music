@@ -23,7 +23,10 @@ export class HeaderComponent implements OnInit {
   }
 
   search() {
-    if (this.searchKey.trim() != "") this._router.navigate(['/search', this.searchKey]);
+    if (this.searchKey.trim() != "") {
+      let s = this.searchKey.trim().split(" ").join("-");
+      this._router.navigate(['/search', s]);
+    }
   }
 
   logout() {

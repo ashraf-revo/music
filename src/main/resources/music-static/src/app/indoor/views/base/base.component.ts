@@ -20,9 +20,9 @@ export class BaseComponent implements OnInit,OnDestroy {
     this.subscription = this._router.events.subscribe(it => {
       let values: string[] = it.url.split("/");
       if (values.length > 0) {
-        if (values[1] == 'filter') {
+        if (values[1] == 'search') {
           if (values.length > 2 && values[2].trim() != "") {
-            this.search = values[2];
+            this.search = values[2].split("-").join(" ");
           } else this.search = ""
         } else this.search = ""
       } else this.search = ""
