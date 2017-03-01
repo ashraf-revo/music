@@ -8,6 +8,7 @@ import {SearchCriteria} from "../domain/SearchCriteria";
 import {Like} from "../domain/Like";
 import {View} from "../domain/View";
 import {Search} from "../domain/Search";
+import {SongInfo} from "../domain/SongInfo";
 
 @Injectable()
 export class SongService {
@@ -20,6 +21,16 @@ export class SongService {
   songs(): Observable<Song[]> {
     if (!this._authService.isAuth() || this._defaultService.mock)return Observable.empty<Song[]>();
     return this._http.get(this.url).map(res => res.json())
+  }
+
+  song(id: string): Observable<Song> {
+    if (!this._authService.isAuth() || this._defaultService.mock)return Observable.empty<Song>();
+    return this._http.get(this.url + "/" + id).map(res => res.json())
+  }
+
+  songInfo(id: string): Observable<SongInfo> {
+    if (!this._authService.isAuth() || this._defaultService.mock)return Observable.empty<SongInfo>();
+    return this._http.get(this.url + "/" + id + "/info").map(res => res.json())
   }
 
   songsSearchAndGet(searchCriteria: SearchCriteria): Observable<Search> {

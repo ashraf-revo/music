@@ -12,9 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by ashraf on 18/01/17.
@@ -50,11 +48,8 @@ public class SongApi {
     }
 
     @GetMapping("{id}/info")
-    public ResponseEntity<Map<String, Integer>> findSongInfo(@PathVariable("id") Long id) {
-        Map<String, Integer> map = new HashMap<>();
-        map.put("likes", cachedSongService.likesCount(id));
-        map.put("views", cachedSongService.viewsCount(id));
-        return ResponseEntity.ok(map);
+    public ResponseEntity<SongInfo> findSongInfo(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(new SongInfo(cachedSongService.likesCount(id), cachedSongService.viewsCount(id)));
     }
 
     @PostMapping(value = "search")
