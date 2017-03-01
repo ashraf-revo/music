@@ -18,13 +18,14 @@ import {SongComponent} from "./indoor/parts/song/song.component";
 import {UploadComponent} from "./indoor/views/upload/upload.component";
 import {SearchComponent} from "./indoor/views/search/search.component";
 import {UserService} from "./services/user.service";
-import {GuardService} from "./services/guard.service";
 import {AuthService} from "./services/auth.service";
 import {DefaultService} from "./services/default.service";
-import { SettingsComponent } from './indoor/views/settings/settings.component';
-import { ActiveComponent } from './outdoor/active/active.component';
-import { TabComponent } from './indoor/parts/tab/tab.component';
-import { Error404Component } from './outdoor/error404/error404.component';
+import {SettingsComponent} from "./indoor/views/settings/settings.component";
+import {ActiveComponent} from "./outdoor/active/active.component";
+import {TabComponent} from "./indoor/parts/tab/tab.component";
+import {Error404Component} from "./outdoor/error404/error404.component";
+import {SecureGuardService} from "./services/SecureGuardService";
+import {InSecureGuardService} from "./services/InSecureGuardService";
 export function Cookie() {
   return new CookieXSRFStrategy('XSRF-TOKEN', 'X-XSRF-TOKEN')
 }
@@ -55,10 +56,12 @@ export function Cookie() {
     FormsModule,
     HttpModule, RouterModule.forRoot(routes)
   ],
-  providers: [UserService, GuardService, AuthService, {
-    provide: XSRFStrategy,
-    useFactory: Cookie
-  }, DefaultService],
+  providers: [UserService, AuthService,
+    SecureGuardService, InSecureGuardService,
+    {
+      provide: XSRFStrategy,
+      useFactory: Cookie
+    }, DefaultService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

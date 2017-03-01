@@ -4,16 +4,14 @@ import {User} from "../domain/User";
 import {Http, Headers, RequestOptions, Response} from "@angular/http";
 import {DefaultService} from "./default.service";
 import {AuthService} from "./auth.service";
-import {GuardService} from "./guard.service";
-import {View} from "../domain/View";
-import {Like} from "../domain/Like";
 import {Song} from "../domain/Song";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class UserService {
   private url: string = "";
 
-  constructor(private _http: Http, private _defaultService: DefaultService, private _authService: AuthService, private _guardService: GuardService) {
+  constructor(private _router: Router, private _http: Http, private _defaultService: DefaultService, private _authService: AuthService) {
     this.url = this._defaultService.url + "/api/user"
   }
 
@@ -56,10 +54,10 @@ export class UserService {
   loginRoute(userObservable: Observable<User>, fun: Function) {
     userObservable.subscribe(user => {
       this._authService.setAuth(user);
-      this._guardService.canActivateImpl(this._defaultService.lastUrl);
+      DefaultService.canActivateImpl(this._defaultService.lastUrl, this._router, this._authService, this._defaultService);
     }, error => {
       this._authService.remove();
-      this._guardService.canActivateImpl(this._defaultService.lastUrl);
+      DefaultService.canActivateImpl(this._defaultService.lastUrl, this._router, this._authService, this._defaultService);
       fun(error._body);
     }, () => {
     })
@@ -70,7 +68,7 @@ export class UserService {
     }, error => {
     }, () => {
       this._authService.remove();
-      this._guardService.canActivateImpl(this._defaultService.lastUrl);
+      DefaultService.canActivateImpl(this._defaultService.lastUrl, this._router, this._authService, this._defaultService);
     })
   }
 
@@ -84,7 +82,7 @@ export class UserService {
 
   songsTo(it: string): Observable<Song[]> {
     if (!this._authService.isAuth() || this._defaultService.mock)return Observable.empty<Song[]>();
-    return this._http.get(this.url + "/" + it+"/songs").map(res => res.json())
+    return this._http.get(this.url + "/" + it + "/songs").map(res => res.json())
   }
 
   likesTo(it: string): Observable<Song[]> {
