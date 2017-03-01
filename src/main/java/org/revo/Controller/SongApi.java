@@ -49,8 +49,7 @@ public class SongApi {
         return ResponseEntity.ok(songService.findSong(id));
     }
 
-    @GetMapping("info/{id}")
-    @JsonView(ViewDetails.CustomSong.class)
+    @GetMapping("{id}/info")
     public ResponseEntity<Map<String, Integer>> findSongInfo(@PathVariable("id") Long id) {
         Map<String, Integer> map = new HashMap<>();
         map.put("likes", cachedSongService.likesCount(id));
