@@ -60,6 +60,6 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public Song findSong(Long id) {
-        return null;
+        return songRepository.findOne(id);
     }
 }
