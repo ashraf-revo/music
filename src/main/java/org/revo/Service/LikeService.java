@@ -15,5 +15,7 @@ public interface LikeService {
     List<Like> readBySong_Id(Long id);
 
     List<Like> readByUser_Id(Long id);
+
+    Like findOne(Long id);
 }
    

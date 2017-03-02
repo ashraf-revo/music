@@ -11,7 +11,7 @@ import {Subscription} from "rxjs";
 })
 export class BaseComponent implements OnInit,OnDestroy {
   search: string = "";
-  subscription: Subscription = null;
+  private subscription: Subscription = null;
 
   constructor(private _router: Router) {
   }

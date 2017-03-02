@@ -34,9 +34,9 @@ public class CachedSongServiceImpl implements CachedSongService {
         return viewService.readBySong_Id(id);
     }
 
-    @CachePut(value = "songViews", key = "#view.user.id")
+    @CachePut(value = "songViews", key = "#view.song.id")
     public List<View> add(View view) {
-        List<View> views = cachedSongService.views(view.getUser().getId());
+        List<View> views = cachedSongService.views(view.getSong().getId());
         views.add(copyView(view));
         cachedSongService.addView(view.getSong().getId());
         return views;
@@ -47,18 +47,18 @@ public class CachedSongServiceImpl implements CachedSongService {
         return LikeService.readBySong_Id(id);
     }
 
-    @CachePut(value = "songLikes", key = "#like.user.id")
+    @CachePut(value = "songLikes", key = "#like.song.id")
     public List<Like> add(Like like) {
-        List<Like> likes = cachedSongService.likes(like.getUser().getId());
+        List<Like> likes = cachedSongService.likes(like.getSong().getId());
         likes.add(copyLike(like));
         cachedSongService.addLike(like.getSong().getId());
         return likes;
     }
 
-    @CachePut(value = "songLikes", key = "#like.user.id")
+    @CachePut(value = "songLikes", key = "#like.song.id")
     public List<Like> remove(Like like) {
         cachedSongService.removeLike(like.getSong().getId());
-        return cachedSongService.likes(like.getUser().getId()).stream().filter(it -> !Objects.equals(it.getId(), like.getId())).collect(toList());
+        return cachedSongService.likes(like.getSong().getId()).stream().filter(it -> !Objects.equals(it.getId(), like.getId())).collect(toList());
     }
 
     @Cacheable(value = "likesCount", key = "#id")

@@ -7,9 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.revo.Util.ViewDetails;
 import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -21,7 +23,6 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "music_like")
 public class Like extends BaseEntity {
     @ManyToOne
@@ -35,6 +36,16 @@ public class Like extends BaseEntity {
     @NotNull
     @JsonView(ViewDetails.likeSong.class)
     private Song song;
+
+    @Override
+    public String toString() {
+        return "Like{" +
+                "id='" + getId() + '\'' +
+                ", createdDate='" + getCreatedDate() + '\'' +
+                ", user='" + user.getId() + '\'' +
+                ", song='" + song.getId() + '\'' +
+                '}';
+    }
 
     public Like(Long id, Long user, Long song, Date createdDate) {
         super.setId(id);

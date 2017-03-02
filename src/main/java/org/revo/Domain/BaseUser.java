@@ -39,6 +39,7 @@ public abstract class BaseUser extends BaseEntity implements UserDetails {
     private String type = "000";
 
     @Transient
+    @JsonProperty(access = READ_ONLY)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<String> roles = new ArrayList<>();

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.revo.Util.ViewDetails;
 import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,7 +20,6 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "music_view")
 public class View extends BaseEntity {
     @ManyToOne
@@ -35,6 +33,16 @@ public class View extends BaseEntity {
     @NotNull
     @JsonView(ViewDetails.viewSong.class)
     private Song song;
+
+    @Override
+    public String toString() {
+        return "View{" +
+                "id='" + getId() +'\'' +
+                ", createdDate='" + getCreatedDate() +'\'' +
+                ", user='" + user.getId() +'\'' +
+                ", song='" + song.getId() +'\'' +
+                '}';
+    }
 
     public View(Long id, Long user, Long song, Date createdDate) {
         super.setId(id);

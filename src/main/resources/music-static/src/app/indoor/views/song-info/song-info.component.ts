@@ -13,8 +13,8 @@ import {SongInfo} from "../../../domain/SongInfo";
 export class SongInfoComponent implements OnInit,OnDestroy {
   song: Song;
   songInfo: SongInfo;
-  subscription1: Subscription;
-  subscription2: Subscription;
+  private subscription1: Subscription;
+  private subscription2: Subscription;
 
   constructor(private _activatedRoute: ActivatedRoute, private _songService: SongService) {
   }

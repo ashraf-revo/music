@@ -16,10 +16,10 @@ export class ProfileComponent implements OnInit,OnDestroy {
   views: Song[] = [];
   likes: Song[] = [];
   user: User = new User();
-  subscription1: Subscription;
-  subscription2: Subscription;
-  subscription3: Subscription;
-  subscription4: Subscription;
+  private subscription1: Subscription;
+  private subscription2: Subscription;
+  private subscription3: Subscription;
+  private subscription4: Subscription;
 
   constructor(private _activatedRoute: ActivatedRoute, private _userService: UserService) {
   }

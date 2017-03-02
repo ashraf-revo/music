@@ -2,8 +2,6 @@ package org.revo.Service.Impl;
 
 import org.revo.Domain.Like;
 import org.revo.Repository.LikeRepository;
-import org.revo.Service.CachedSongService;
-import org.revo.Service.CachedUserService;
 import org.revo.Service.LikeService;
 import org.revo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +20,6 @@ public class LikeServiceImpl implements LikeService {
     private LikeRepository likeRepository;
     @Autowired
     private UserService userService;
-    @Autowired
-    private CachedSongService cachedSongService;
-    @Autowired
-    private CachedUserService cachedUserService;
 
     @Override
     public Like like(Like like) {
@@ -33,23 +27,13 @@ public class LikeServiceImpl implements LikeService {
         Assert.notNull(like.getUser().getId());
         Assert.notNull(like.getSong().getId());
         Assert.isNull(like.getId());
-        return likeRepository.findByUser_IdAndSong_Id(like.getUser().getId(), like.getSong().getId()).orElseGet(() -> {
-            Like save = likeRepository.save(like);
-            cachedUserService.add(save);
-            cachedSongService.add(save);
-            return save;
-        });
+        return likeRepository.findByUser_IdAndSong_Id(like.getUser().getId(), like.getSong().getId()).orElseGet(() -> likeRepository.save(like));
     }
 
     @Transactional
     @Override
     public void unLike(Like like) {
-        Assert.notNull(like.getId());
-        likeRepository.findById(like.getId()).ifPresent(likes -> {
-            likeRepository.removeById(like.getId());
-            cachedUserService.remove(likes);
-            cachedSongService.remove(likes);
-        });
+        likeRepository.delete(like.getId());
     }
 
     @Override
@@ -60,5 +44,10 @@ public class LikeServiceImpl implements LikeService {
     @Override
     public List<Like> readByUser_Id(Long id) {
         return likeRepository.readByUser_Id(id);
+    }
+
+    @Override
+    public Like findOne(Long id) {
+        return likeRepository.findOne(id);
     }
 }

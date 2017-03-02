@@ -11,7 +11,6 @@ import org.hibernate.search.annotations.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.revo.Util.ViewDetails;
 import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -33,7 +32,6 @@ import static org.hibernate.search.annotations.Index.YES;
 @NoArgsConstructor
 @AllArgsConstructor
 @Indexed
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "music_song")
 public class Song extends BaseEntity {
     @NotBlank
@@ -78,6 +76,19 @@ public class Song extends BaseEntity {
     @JsonView(ViewDetails.song.class)
     private Like liked = null;
 
+    @Override
+    public String toString() {
+        return "Song{" +
+                ", id='" + getId() + '\'' +
+                ", createdDate='" + getCreatedDate() + '\'' +
+                ", title='" + title + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", fileUrl='" + fileUrl + '\'' +
+                ", description='" + description + '\'' +
+                ", user=" + user.getId() +
+                '}';
+    }
+
     public Song(Long id) {
         super.setId(id);
     }
@@ -93,6 +104,6 @@ public class Song extends BaseEntity {
     }
 
     public static String[] ProjectionField() {
-        return new String[]{"id", "title","imageUrl"};
+        return new String[]{"id", "title", "imageUrl"};
     }
 }

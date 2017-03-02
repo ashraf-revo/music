@@ -6,16 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
-import org.apache.lucene.analysis.core.StopFilterFactory;
-import org.apache.lucene.analysis.ngram.NGramFilterFactory;
-import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.search.annotations.*;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.revo.Util.ViewDetails;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -36,19 +31,6 @@ import static org.hibernate.search.annotations.Index.YES;
 @NoArgsConstructor
 @AllArgsConstructor
 @Indexed
-@AnalyzerDef(name = "customanalyzer",
-        tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
-        filters = {
-                @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-                @TokenFilterDef(factory = NGramFilterFactory.class, params = {
-                        @org.hibernate.search.annotations.Parameter(name = "minGramSize", value = "3"),
-                        @org.hibernate.search.annotations.Parameter(name = "maxGramSize", value = "3")
-                }),
-                @TokenFilterDef(factory = StopFilterFactory.class, params = {
-                        @org.hibernate.search.annotations.Parameter(name = "ignoreCase", value = "true")
-                })
-        })
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "music_user")
 public class User extends BaseUser {
     @NotBlank
@@ -106,6 +88,20 @@ public class User extends BaseUser {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + getId() + '\'' +
+                " ,createdDate='" + getCreatedDate() + '\'' +
+                " ,name='" + name + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", phone='" + phone + '\'' +
+                ", info='" + info + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 
     public User(Long id) {
