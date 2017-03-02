@@ -4,6 +4,8 @@ jdk:
 script: /bin/true
 install:
 - mvn clean install -DskipTests=true
+after_success:
+ -travis encrypt --add deploy.password
 deploy:
   edge: true
   provider: cloudfoundry
