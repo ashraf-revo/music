@@ -1,16 +1,16 @@
 language: java
 jdk:
 - oraclejdk8
-script: /bin/true
+script: "/bin/true"
 install:
 - mvn clean install -DskipTests=true
-after_success:
- -travis encrypt --add deploy.password
+after_success: "-travis encrypt --add deploy.password"
 deploy:
   edge: true
   provider: cloudfoundry
   username: ashraf1revo@gmail.com
-  password: 01120266849ASHra;
+  password:
+    secure: eK9wdSG6hVkaulK5dVYS72UIT/8ChmmDOXTdbnB4lCt58ddAeEZlgiRoCyAVuSqiB14VojKXo/MAd3HQi5rTe/4kifkJoOrYC3fze9ZSKTpL/bXmVCA6HvGmXT6IXb+CVPWrI0qwM/kJGzlClKJFADIJ+HSIrmyriYM5lTaNQEFUej39xKKPvGfc6pnwXIy3+8EKDowyGzdusIm8leoEMWOjoLvyClvGxftTxx8TUB8NeoaWKE6AkVYO7NDKRfiv0wfR9oUiGrhE8kIKPAbuJ/huNmNvh8x6xlAg1sPAsYMx0h55nr72rzr/tU6GUcJOOzcF97eL7BYiwRQu508JPq0Uc+tzJzxJ7itqLmxVChmBLiCWzHeazwfG/AooPDC33s5dfNKSYDvXKmX6JB53ZSCs51XHcMe+4bGAtJxqO/ODW5Xyvc6YIYoYJN/qvcIN5KJ4fxSco733Pars9qEVpuSGLAPXghAb/AYq7p0b1AGaSCYAgbUL3ugcSo9DOO8Ab7XxDl9co8UtvWYXO162i6Ikp2oRjk2bX9Syopu0uu7g5oftCNr4Q09IO2M6Boh0Oln/UIfLR6oee8jNtjTqj9VD2G0MNX5EKMJRGlPeP6xDCISLJgssZhVueOqxFy+mMk6GeuZBGXyojW57NL9pGqBZZgGpXliM0IrWra4UVAA=
   api: https://api.run.pivotal.io
   organization: ashraf1revo
   space: development
