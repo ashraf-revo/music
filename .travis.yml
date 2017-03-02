@@ -3,7 +3,7 @@ jdk:
 - oraclejdk8
 script: /bin/true
 install:
-- ./mvnw clean install -DskipTests=true
+- mvn clean install -DskipTests=true
 deploy:
   edge: true
   provider: cloudfoundry
