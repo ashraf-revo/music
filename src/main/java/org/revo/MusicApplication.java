@@ -1,5 +1,6 @@
 package org.revo;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.revo.Configration.AppEnv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableJpaAuditing
 @EnableCaching
 @EnableScheduling
+@EnableEncryptableProperties
 @EnableConfigurationProperties({AppEnv.class})
 public class MusicApplication {
     public static void main(String[] args) {

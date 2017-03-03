@@ -12,3 +12,4 @@ applications:
   - NewRelicMusic
   env:
     SPRING_PROFILES_ACTIVE: pivotal
+    JASYPT_ENCRYPTOR_PASSWORD: revo

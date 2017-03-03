@@ -1,5 +1,6 @@
 package org.revo.Util;
 
+import org.jasypt.util.text.BasicTextEncryptor;
 import org.revo.Domain.Like;
 import org.revo.Domain.Song;
 import org.revo.Domain.User;
@@ -57,4 +58,9 @@ public class Util {
         return l;
     }
 
+    public static String encrypt(String key, String text) {
+        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+        textEncryptor.setPassword(key);
+        return textEncryptor.encrypt(text);
+    }
 }
