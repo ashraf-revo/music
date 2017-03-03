@@ -1,15 +1,5 @@
 language: java
 jdk:
 - oraclejdk8
-script: "/bin/true"
 install:
 - mvn clean install -DskipTests=true
-deploy:
-  edge: true
-  provider: cloudfoundry
-  username: ashraf1revo@gmail.com
-  password:
-    secure: EUpNwloQV1izuyw359sRz0eZ8KB71alBGiNuDXYCgD5Vtq/WdTp9xQseDUUJVI2E4GQ805pGD4VI1Pd5qBdUqAeh3IwKq8T0vno2+FWQ3qz56C9qBAthNdWzUUeRBfLiiqktcTsiiS8ZAAKbH2TYjhS8viHdJenTmT9rkOITxcKkrk24z8td/ZFlHXaRZfYzWaqGSX8MEFrf/RsLWyQuCyXvwKPVNvOfFBwb+Wp6V1PVp6iOXGxCjU+3FHTbWp4aafk3F+3MrOuiQdhL/WCgw8RjkQ+qPYRtFA7hVkf6npJ2K3J0DzHlVbxQEHKcn4kIV9SD0o9fDYOQhYewxwDrhkPFUpY/AWESm34fHO3AEeb0oBfM9tQq2ddCvWU9rFj433bRb2o/A14k03L3j+G8P1itlz7xer4S7lk5W3UWe8m5tFBaRwePTB70BGmxkW8B3MfA8quE37gjnHdO6Di9dSQsx8XqXsz1sRsMFk5EyJKvH0YG24GysujGlLOqtlG7HvGvgAAKHot5+a/ZiOM2wAjZWoJPkMua6ulQ9p10c5XmhDN2EutntIiJ0bN2uUA9A8hSTfF2Vo7IWt8eBAH7hV4undwhdJ+GZEiLVVJHR+iU55DeXV2DfHemK4NDqXJGqmIOpZi6F6LnNkprxjt3Hqy2bVSJIDE4omVaenZhl7U=
-  api: https://api.run.pivotal.io
-  organization: ashraf1revo
-  space: development
