@@ -1,5 +1,7 @@
 package org.revo.Configration;
 
+import org.hibernate.search.MassIndexer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -17,11 +19,16 @@ import static org.hibernate.search.jpa.Search.getFullTextEntityManager;
 public class BuildSearchIndex implements ApplicationListener<ContextRefreshedEvent> {
     @PersistenceContext
     private EntityManager em;
+    @Value("${org.revo.app_env.reindex}")
+    private boolean reindex;
 
     @Override
     public void onApplicationEvent(final ContextRefreshedEvent event) {
         try {
-            getFullTextEntityManager(em).createIndexer().startAndWait();
+            MassIndexer indexer = getFullTextEntityManager(em).createIndexer();
+            if (reindex)
+                indexer.startAndWait();
+
         } catch (InterruptedException e) {
         }
 

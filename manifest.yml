@@ -13,4 +13,4 @@ applications:
   env:
     SPRING_PROFILES_ACTIVE: pivotal
     JASYPT_ENCRYPTOR_PASSWORD: revo
-    INDEX: NONE
+    ORG_REVO_APP_ENV_REINDEX: false
